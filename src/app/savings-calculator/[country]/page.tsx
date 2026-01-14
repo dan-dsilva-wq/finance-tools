@@ -11,6 +11,8 @@ import SavingsChart from '@/components/SavingsChart';
 import SavingsTable from '@/components/SavingsTable';
 import ShareButton from '@/components/ShareButton';
 import CountrySelector from '@/components/CountrySelector';
+import { SavingsAffiliates } from '@/components/AffiliateModule';
+import { AdPlaceholder } from '@/components/AdUnit';
 import Link from 'next/link';
 
 export default function SavingsCalculatorPage() {
@@ -77,48 +79,60 @@ export default function SavingsCalculatorPage() {
           <CountrySelector basePath="/savings-calculator" currentCountry={countryCode} />
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <SavingsForm
-              country={country}
-              initialValues={initialValues}
-              onCalculate={handleCalculate}
-            />
+        {/* Top Ad Banner */}
+        <div className="mb-6">
+          <AdPlaceholder format="horizontal" className="w-full" />
+        </div>
 
-            {results && currentInputs && (
-              <div className="flex justify-center">
-                <ShareButton
-                  tool="savings"
-                  countryCode={countryCode}
-                  params={currentInputs as any}
-                />
+        <div className="grid lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <SavingsForm
+                country={country}
+                initialValues={initialValues}
+                onCalculate={handleCalculate}
+              />
+
+              <div className="space-y-6">
+                {results ? (
+                  <SavingsResults results={results} country={country} />
+                ) : (
+                  <div className="bg-white p-8 rounded-lg shadow-md text-center text-gray-500">
+                    <p>Enter your details and click Calculate to see your results</p>
+                  </div>
+                )}
+
+                {results && currentInputs && (
+                  <div className="flex justify-center">
+                    <ShareButton
+                      tool="savings"
+                      countryCode={countryCode}
+                      params={currentInputs as any}
+                    />
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </div>
 
-          <div className="space-y-6">
-            {results ? (
+            {results && (
               <>
-                <SavingsResults results={results} country={country} />
                 <SavingsChart
                   schedule={results.schedule}
                   country={country}
                   initialDeposit={currentInputs?.initialDeposit || 0}
                 />
+                <AdPlaceholder format="horizontal" className="w-full" />
+                <SavingsTable schedule={results.schedule} country={country} />
               </>
-            ) : (
-              <div className="bg-white p-8 rounded-lg shadow-md text-center text-gray-500">
-                <p>Enter your details and click Calculate to see your results</p>
-              </div>
             )}
           </div>
-        </div>
 
-        {results && (
-          <div className="mt-8">
-            <SavingsTable schedule={results.schedule} country={country} />
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <SavingsAffiliates countryCode={countryCode} />
+            <AdPlaceholder format="rectangle" className="mx-auto" />
           </div>
-        )}
+        </div>
 
         <footer className="mt-12 text-center text-sm text-gray-500">
           <p>

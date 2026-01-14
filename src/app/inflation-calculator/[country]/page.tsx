@@ -9,6 +9,7 @@ import InflationForm from '@/components/InflationForm';
 import InflationResults from '@/components/InflationResults';
 import ShareButton from '@/components/ShareButton';
 import CountrySelector from '@/components/CountrySelector';
+import { AdPlaceholder } from '@/components/AdUnit';
 import Link from 'next/link';
 
 export default function InflationCalculatorPage() {
@@ -84,43 +85,70 @@ export default function InflationCalculatorPage() {
           <CountrySelector basePath="/inflation-calculator" currentCountry={countryCode} />
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <InflationForm
-              country={country}
-              initialValues={initialValues}
-              onCalculate={handleCalculate}
-            />
+        {/* Top Ad Banner */}
+        <div className="mb-6">
+          <AdPlaceholder format="horizontal" className="w-full" />
+        </div>
 
-            {results && currentInputs && (
-              <div className="flex justify-center">
-                <ShareButton
-                  tool="inflation"
-                  countryCode={countryCode}
-                  params={currentInputs as any}
+        <div className="grid lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-6">
+                <InflationForm
+                  country={country}
+                  initialValues={initialValues}
+                  onCalculate={handleCalculate}
                 />
+
+                {results && currentInputs && (
+                  <div className="flex justify-center">
+                    <ShareButton
+                      tool="inflation"
+                      countryCode={countryCode}
+                      params={currentInputs as any}
+                    />
+                  </div>
+                )}
               </div>
-            )}
+
+              <div className="space-y-6">
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg">
+                    {error}
+                  </div>
+                )}
+
+                {results && currentInputs ? (
+                  <InflationResults
+                    results={results}
+                    country={country}
+                    originalAmount={currentInputs.amount}
+                  />
+                ) : !error && (
+                  <div className="bg-white p-8 rounded-lg shadow-md text-center text-gray-500">
+                    <p>Enter your details and click Calculate to see your results</p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
+          {/* Sidebar */}
           <div className="space-y-6">
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg">
-                {error}
-              </div>
-            )}
-
-            {results && currentInputs ? (
-              <InflationResults
-                results={results}
-                country={country}
-                originalAmount={currentInputs.amount}
-              />
-            ) : !error && (
-              <div className="bg-white p-8 rounded-lg shadow-md text-center text-gray-500">
-                <p>Enter your details and click Calculate to see your results</p>
-              </div>
-            )}
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">Understanding Inflation</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                Inflation measures how the purchasing power of money changes over time.
+                When inflation rises, each unit of currency buys fewer goods and services.
+              </p>
+              <Link
+                href="/data/inflation-indices"
+                className="text-amber-600 hover:underline text-sm font-medium"
+              >
+                View historical inflation data →
+              </Link>
+            </div>
+            <AdPlaceholder format="rectangle" className="mx-auto" />
           </div>
         </div>
 

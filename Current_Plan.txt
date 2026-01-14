@@ -4,9 +4,10 @@ Last Updated: Session 2
 
 GOAL: Build a passive income website with financial calculators
 Stack: Next.js 14 + Tailwind + Supabase + Vercel
+Live URL: https://keyfinance.vercel.app
 
 =====================================
-STATUS: 3 CALCULATORS + 3 DATA PAGES LIVE
+STATUS: MONETIZATION ENABLED
 =====================================
 
 [COMPLETED] Phase 1: Project Setup
@@ -56,15 +57,38 @@ STATUS: 3 CALCULATORS + 3 DATA PAGES LIVE
     - GBP/USD, USD/CAD, AUD/USD, EUR/USD pairs
     - Interactive charts with current rate reference line
 
+[COMPLETED] Phase 8: Monetization
+  - Google AdSense integration (Publisher ID: ca-pub-7379575486597863)
+  - Ad placements on all calculator pages:
+    - Top banner ad
+    - In-content ad (after results)
+    - Sidebar rectangle ad
+  - Affiliate modules:
+    - Mortgage affiliates: Compare rates, broker connections, guides
+    - Savings affiliates: High-yield accounts, ISAs/TFSAs, investment platforms
+    - Country-specific affiliate links (placeholder URLs - ready to update)
+  - Note: Using AdPlaceholder components until AdSense approval
+    - Once approved, replace AdPlaceholder with AdUnit component
+    - You'll need to create ad units in AdSense dashboard and use their slot IDs
+
 =====================================
 NEXT STEPS
 =====================================
 
-[TODO] 1. Monetization
-  - Display ads on tool pages
-  - Affiliate modules (mortgage brokers, savings platforms)
+[TODO] 1. AdSense Setup (After Approval)
+  - Create ad units in AdSense dashboard
+  - Replace AdPlaceholder with AdUnit components using real slot IDs
+  - Test ad rendering on live site
 
-[TODO] 2. Future Enhancements
+[TODO] 2. Affiliate Links
+  - Sign up for affiliate programs:
+    - UK: Compare the Market, MoneySuperMarket, Habito
+    - US: NerdWallet, Bankrate, LendingTree
+    - CA: RateHub, Ratehub, Wealthsimple
+    - AU: Canstar, Finder, Compare the Market AU
+  - Update placeholder URLs in AffiliateModule.tsx
+
+[TODO] 3. Future Enhancements
   - Live CPI data ingestion via cron jobs
   - More countries
   - PDF export of calculations
@@ -87,6 +111,10 @@ Core Logic:
   src/lib/countries.ts                - Country configurations
   src/lib/data/policyRates.ts         - Historical policy rate data
   src/lib/data/fxRates.ts             - Historical FX rate data
+
+Monetization:
+  src/components/AdUnit.tsx           - AdSense ad component + placeholder
+  src/components/AffiliateModule.tsx  - Affiliate link modules
 
 Components:
   src/components/RateChart.tsx        - Single-series rate chart

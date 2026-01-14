@@ -11,6 +11,8 @@ import AmortizationTable from '@/components/AmortizationTable';
 import BalanceChart from '@/components/BalanceChart';
 import ShareButton from '@/components/ShareButton';
 import CountrySelector from '@/components/CountrySelector';
+import { MortgageAffiliates } from '@/components/AffiliateModule';
+import { AdPlaceholder } from '@/components/AdUnit';
 import Link from 'next/link';
 
 export default function MortgageCalculatorPage() {
@@ -77,44 +79,56 @@ export default function MortgageCalculatorPage() {
           <CountrySelector basePath="/mortgage-calculator" currentCountry={countryCode} />
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <MortgageForm
-              country={country}
-              initialValues={initialValues}
-              onCalculate={handleCalculate}
-            />
-
-            {results && currentInputs && (
-              <div className="flex justify-center">
-                <ShareButton
-                  tool="mortgage"
-                  countryCode={countryCode}
-                  params={currentInputs}
-                />
-              </div>
-            )}
-          </div>
-
-          <div className="space-y-6">
-            {results ? (
-              <>
-                <MortgageResults results={results} country={country} />
-                <BalanceChart schedule={results.schedule} country={country} />
-              </>
-            ) : (
-              <div className="bg-white p-8 rounded-lg shadow-md text-center text-gray-500">
-                <p>Enter your details and click Calculate to see your results</p>
-              </div>
-            )}
-          </div>
+        {/* Top Ad Banner */}
+        <div className="mb-6">
+          <AdPlaceholder format="horizontal" className="w-full" />
         </div>
 
-        {results && (
-          <div className="mt-8">
-            <AmortizationTable schedule={results.schedule} country={country} />
+        <div className="grid lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <MortgageForm
+                country={country}
+                initialValues={initialValues}
+                onCalculate={handleCalculate}
+              />
+
+              <div className="space-y-6">
+                {results ? (
+                  <MortgageResults results={results} country={country} />
+                ) : (
+                  <div className="bg-white p-8 rounded-lg shadow-md text-center text-gray-500">
+                    <p>Enter your details and click Calculate to see your results</p>
+                  </div>
+                )}
+
+                {results && currentInputs && (
+                  <div className="flex justify-center">
+                    <ShareButton
+                      tool="mortgage"
+                      countryCode={countryCode}
+                      params={currentInputs}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {results && (
+              <>
+                <BalanceChart schedule={results.schedule} country={country} />
+                <AdPlaceholder format="horizontal" className="w-full" />
+                <AmortizationTable schedule={results.schedule} country={country} />
+              </>
+            )}
           </div>
-        )}
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <MortgageAffiliates countryCode={countryCode} />
+            <AdPlaceholder format="rectangle" className="mx-auto" />
+          </div>
+        </div>
 
         <footer className="mt-12 text-center text-sm text-gray-500">
           <p>
