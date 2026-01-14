@@ -11,7 +11,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend,
 } from 'recharts';
 
 interface SavingsChartProps {
@@ -77,7 +76,6 @@ export default function SavingsChart({ schedule, country, initialDeposit }: Savi
                 fontWeight: 600,
               }}
             />
-            <Legend />
             <Area
               type="monotone"
               dataKey="total"
