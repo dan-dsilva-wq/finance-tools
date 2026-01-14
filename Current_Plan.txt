@@ -6,7 +6,7 @@ GOAL: Build a passive income website with financial calculators
 Stack: Next.js 14 + Tailwind + Supabase + Vercel
 
 =====================================
-MVP STATUS: COMPLETE & TESTED
+MVP STATUS: LIVE
 =====================================
 
 [COMPLETED] Phase 1: Project Setup
@@ -49,30 +49,28 @@ MVP STATUS: COMPLETE & TESTED
   - UI polished (fixed input text visibility, chart decimals)
   - Calculator working correctly
 
+[COMPLETED] Phase 9: Vercel Deployment
+  - Code pushed to GitHub
+  - Deployed to Vercel
+  - Environment variables configured
+
 =====================================
 NEXT STEPS
 =====================================
 
-[TODO] 1. Deploy to Vercel
-  - Push to GitHub
-  - Import to Vercel
-  - Set environment variables:
-    * NEXT_PUBLIC_SUPABASE_URL
-    * NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-[TODO] 2. Test Share Functionality
-  - Create a scenario
+[TODO] 1. Test Share Functionality (Live)
+  - Create a scenario on live site
   - Share the link
   - Verify it loads correctly
+
+[TODO] 2. Build Savings Calculator
+  - Compound interest calculations
+  - Contribution schedules
+  - Inflation adjustment option
 
 =====================================
 FUTURE PHASES (Post-MVP)
 =====================================
-
-Phase 2: Savings Calculator
-  - Compound interest calculations
-  - Contribution schedules
-  - Inflation adjustment option
 
 Phase 3: Inflation Calculator
   - CPI data ingestion (cron jobs)
@@ -106,3 +104,6 @@ Pages:
   src/app/page.tsx                          - Home
   src/app/mortgage-calculator/[country]/    - Calculator
   src/app/s/[id]/                           - Scenario loader
+
+Repository:
+  https://github.com/dan-dsilva-wq/finance-tools

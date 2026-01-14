@@ -35,11 +35,34 @@ export interface Country {
   defaultRate: number;
 }
 
+export interface SavingsInputs {
+  initialDeposit: number;
+  monthlyContribution: number;
+  annualInterestRate: number;
+  years: number;
+  compoundingFrequency: 'monthly' | 'quarterly' | 'annually';
+}
+
+export interface SavingsResults {
+  finalBalance: number;
+  totalContributions: number;
+  totalInterestEarned: number;
+  schedule: SavingsYearRow[];
+}
+
+export interface SavingsYearRow {
+  year: number;
+  startBalance: number;
+  contributions: number;
+  interestEarned: number;
+  endBalance: number;
+}
+
 export interface Scenario {
   id: string;
   tool: 'mortgage' | 'savings' | 'inflation';
   country_code: string;
-  params: MortgageInputs;
+  params: MortgageInputs | SavingsInputs;
   created_at: string;
   last_accessed_at: string;
   views: number;
