@@ -80,28 +80,26 @@ export default function SavingsChart({ schedule, country, initialDeposit }: Savi
             <Legend />
             <Area
               type="monotone"
-              dataKey="contributions"
-              stackId="1"
-              stroke="#3b82f6"
-              fill="#93c5fd"
-              name="Contributions"
-            />
-            <Area
-              type="monotone"
-              dataKey="interest"
-              stackId="1"
-              stroke="#22c55e"
-              fill="#86efac"
-              name="Interest Earned"
+              dataKey="total"
+              stroke="#6b7280"
+              fill="#e5e7eb"
+              name="Total Balance"
             />
             <Line
               type="monotone"
-              dataKey="total"
-              stroke="#6b7280"
+              dataKey="contributions"
+              stroke="#3b82f6"
               strokeWidth={2}
-              strokeDasharray="5 5"
               dot={false}
-              name="Total Balance"
+              name="Contributions"
+            />
+            <Line
+              type="monotone"
+              dataKey="interest"
+              stroke="#22c55e"
+              strokeWidth={2}
+              dot={false}
+              name="Interest Earned"
             />
           </ComposedChart>
         </ResponsiveContainer>
@@ -109,16 +107,16 @@ export default function SavingsChart({ schedule, country, initialDeposit }: Savi
 
       <div className="mt-4 flex justify-center gap-6 text-sm">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 bg-blue-300 rounded" />
+          <div className="w-3 h-3 bg-gray-200 rounded" />
+          <span className="text-gray-600">Total Balance</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-6 border-t-2 border-blue-500" />
           <span className="text-gray-600">Contributions</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 bg-green-300 rounded" />
+          <div className="w-6 border-t-2 border-green-500" />
           <span className="text-gray-600">Interest Earned</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-6 border-t-2 border-dashed border-gray-500" />
-          <span className="text-gray-600">Total</span>
         </div>
       </div>
     </div>
