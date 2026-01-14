@@ -29,7 +29,7 @@ STATUS: 2 CALCULATORS LIVE
   - Compound interest calculations
   - Monthly/quarterly/annual compounding options
   - Year-by-year breakdown table
-  - Stacked area chart (contributions vs interest)
+  - Growth chart (total balance area, contributions + interest lines)
   - Shareable scenario links
 
 [COMPLETED] Phase 5: Vercel Deployment
