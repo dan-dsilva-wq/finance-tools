@@ -21,27 +21,20 @@ interface SavingsChartProps {
 }
 
 export default function SavingsChart({ schedule, country, initialDeposit }: SavingsChartProps) {
-  // Transform data for stacked area chart
+  // Build chart data with cumulative values
+  let cumulativeContributions = initialDeposit;
+  let cumulativeInterest = 0;
+
   const chartData = schedule.map((row) => {
-    const cumulativeContributions = initialDeposit + schedule
-      .slice(0, row.year)
-      .reduce((sum, r) => sum + r.contributions, 0);
-    const cumulativeInterest = row.endBalance - cumulativeContributions - row.contributions;
+    cumulativeContributions += row.contributions;
+    cumulativeInterest += row.interestEarned;
 
     return {
       year: row.year,
-      contributions: cumulativeContributions + row.contributions,
-      interest: cumulativeInterest + row.interestEarned,
+      contributions: cumulativeContributions,
+      interest: cumulativeInterest,
       total: row.endBalance,
     };
-  });
-
-  // Add starting point
-  chartData.unshift({
-    year: 0,
-    contributions: initialDeposit,
-    interest: 0,
-    total: initialDeposit,
   });
 
   return (
@@ -55,7 +48,7 @@ export default function SavingsChart({ schedule, country, initialDeposit }: Savi
             <XAxis
               dataKey="year"
               tick={{ fontSize: 12 }}
-              tickFormatter={(value) => `${value}y`}
+              tickFormatter={(value) => `Y${value}`}
             />
             <YAxis
               tick={{ fontSize: 12 }}
@@ -67,9 +60,9 @@ export default function SavingsChart({ schedule, country, initialDeposit }: Savi
             />
             <Tooltip
               formatter={(value, name) => {
-                const label = name === 'contributions' ? 'Contributions'
-                  : name === 'interest' ? 'Interest Earned'
-                  : 'Total Balance';
+                let label = 'Total Balance';
+                if (name === 'Contributions') label = 'Contributions';
+                else if (name === 'Interest Earned') label = 'Interest Earned';
                 return [formatCurrency(Number(value) || 0, country), label];
               }}
               labelFormatter={(label) => `Year ${label}`}
