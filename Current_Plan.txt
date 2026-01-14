@@ -6,7 +6,7 @@ GOAL: Build a passive income website with financial calculators
 Stack: Next.js 14 + Tailwind + Supabase + Vercel
 
 =====================================
-MVP STATUS: LIVE
+STATUS: 2 CALCULATORS LIVE
 =====================================
 
 [COMPLETED] Phase 1: Project Setup
@@ -15,41 +15,24 @@ MVP STATUS: LIVE
   - Project location: C:\Users\dan-d\Projects\Website\finance-tools
 
 [COMPLETED] Phase 2: Core Infrastructure
-  - Types defined (MortgageInputs, MortgageResults, Country, Scenario)
+  - Types defined (MortgageInputs, MortgageResults, SavingsInputs, etc.)
   - Supabase client configured
   - Country configs: GB, US, CA, AU with localized defaults
 
-[COMPLETED] Phase 3: Mortgage Calculator Engine
+[COMPLETED] Phase 3: Mortgage Calculator
   - Amortization calculation with overpayment support
   - Month-by-month schedule generation
+  - Balance chart visualization
+  - Shareable scenario links
 
-[COMPLETED] Phase 4: UI Components
-  - MortgageForm (inputs with validation)
-  - MortgageResults (summary stats)
-  - AmortizationTable (yearly/monthly toggle)
-  - BalanceChart (Recharts area chart)
-  - ShareButton (creates shareable links)
-  - CountrySelector (flag buttons)
+[COMPLETED] Phase 4: Savings Calculator
+  - Compound interest calculations
+  - Monthly/quarterly/annual compounding options
+  - Year-by-year breakdown table
+  - Stacked area chart (contributions vs interest)
+  - Shareable scenario links
 
-[COMPLETED] Phase 5: Pages & Routing
-  - Home page with tool cards
-  - /mortgage-calculator/[country] page
-  - /s/[id] scenario loader
-
-[COMPLETED] Phase 6: API Endpoints
-  - POST /api/scenario (create)
-  - GET /api/scenario/[id] (load)
-
-[COMPLETED] Phase 7: Supabase Setup
-  - Project created
-  - Tables created (country, scenario)
-  - Credentials configured in .env.local
-
-[COMPLETED] Phase 8: Local Testing
-  - UI polished (fixed input text visibility, chart decimals)
-  - Calculator working correctly
-
-[COMPLETED] Phase 9: Vercel Deployment
+[COMPLETED] Phase 5: Vercel Deployment
   - Code pushed to GitHub
   - Deployed to Vercel
   - Environment variables configured
@@ -58,30 +41,17 @@ MVP STATUS: LIVE
 NEXT STEPS
 =====================================
 
-[TODO] 1. Test Share Functionality (Live)
-  - Create a scenario on live site
-  - Share the link
-  - Verify it loads correctly
-
-[TODO] 2. Build Savings Calculator
-  - Compound interest calculations
-  - Contribution schedules
-  - Inflation adjustment option
-
-=====================================
-FUTURE PHASES (Post-MVP)
-=====================================
-
-Phase 3: Inflation Calculator
+[TODO] 1. Build Inflation Calculator
   - CPI data ingestion (cron jobs)
   - Historical purchasing power comparison
+  - "What would X be worth today?" tool
 
-Phase 4: Rate Dataset Pages
+[TODO] 2. Rate Dataset Pages
   - Policy rates by country
   - Inflation indices
   - FX rates with charts
 
-Phase 5: Monetization
+[TODO] 3. Monetization
   - Display ads on tool pages
   - Affiliate modules (mortgage brokers, savings platforms)
 
@@ -97,12 +67,14 @@ Database:
   supabase_setup.sql      - SQL for Supabase setup (already run)
 
 Core Logic:
-  src/lib/calculations/mortgage.ts  - Amortization engine
+  src/lib/calculations/mortgage.ts  - Mortgage amortization engine
+  src/lib/calculations/savings.ts   - Compound interest engine
   src/lib/countries.ts              - Country configurations
 
 Pages:
   src/app/page.tsx                          - Home
-  src/app/mortgage-calculator/[country]/    - Calculator
+  src/app/mortgage-calculator/[country]/    - Mortgage calculator
+  src/app/savings-calculator/[country]/     - Savings calculator
   src/app/s/[id]/                           - Scenario loader
 
 Repository:

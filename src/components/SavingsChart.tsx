@@ -3,8 +3,9 @@
 import { SavingsYearRow, Country } from '@/types';
 import { formatCurrency } from '@/lib/countries';
 import {
-  AreaChart,
+  ComposedChart,
   Area,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -49,7 +50,7 @@ export default function SavingsChart({ schedule, country, initialDeposit }: Savi
 
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+          <ComposedChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
             <XAxis
               dataKey="year"
@@ -65,16 +66,22 @@ export default function SavingsChart({ schedule, country, initialDeposit }: Savi
               }}
             />
             <Tooltip
-              formatter={(value, name) => [
-                formatCurrency(Number(value) || 0, country),
-                name === 'contributions' ? 'Contributions' : 'Interest Earned'
-              ]}
+              formatter={(value, name) => {
+                const label = name === 'contributions' ? 'Contributions'
+                  : name === 'interest' ? 'Interest Earned'
+                  : 'Total Balance';
+                return [formatCurrency(Number(value) || 0, country), label];
+              }}
               labelFormatter={(label) => `Year ${label}`}
               contentStyle={{
                 backgroundColor: 'white',
                 border: '1px solid #e5e7eb',
                 borderRadius: '6px',
                 fontSize: '14px',
+              }}
+              labelStyle={{
+                color: '#111827',
+                fontWeight: 600,
               }}
             />
             <Legend />
@@ -94,7 +101,16 @@ export default function SavingsChart({ schedule, country, initialDeposit }: Savi
               fill="#86efac"
               name="Interest Earned"
             />
-          </AreaChart>
+            <Line
+              type="monotone"
+              dataKey="total"
+              stroke="#6b7280"
+              strokeWidth={2}
+              strokeDasharray="5 5"
+              dot={false}
+              name="Total Balance"
+            />
+          </ComposedChart>
         </ResponsiveContainer>
       </div>
 
@@ -106,6 +122,10 @@ export default function SavingsChart({ schedule, country, initialDeposit }: Savi
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-green-300 rounded" />
           <span className="text-gray-600">Interest Earned</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-6 border-t-2 border-dashed border-gray-500" />
+          <span className="text-gray-600">Total</span>
         </div>
       </div>
     </div>
