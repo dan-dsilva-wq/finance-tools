@@ -33,7 +33,7 @@ export default function BalanceChart({ schedule, country }: BalanceChartProps) {
   if (chartData.length > 0 && chartData[0].month !== 1) {
     chartData.unshift({
       month: 0,
-      year: '0',
+      year: 0,
       balance: schedule[0].balance + schedule[0].principal,
       principalPaid: 0,
     });
