@@ -1,12 +1,12 @@
 FINANCE TOOLS WEBSITE - CURRENT PLAN
 =====================================
-Last Updated: Session 1
+Last Updated: Session 2
 
 GOAL: Build a passive income website with financial calculators
 Stack: Next.js 14 + Tailwind + Supabase + Vercel
 
 =====================================
-STATUS: 2 CALCULATORS LIVE
+STATUS: 3 CALCULATORS + 3 DATA PAGES LIVE
 =====================================
 
 [COMPLETED] Phase 1: Project Setup
@@ -15,7 +15,7 @@ STATUS: 2 CALCULATORS LIVE
   - Project location: C:\Users\dan-d\Projects\Website\finance-tools
 
 [COMPLETED] Phase 2: Core Infrastructure
-  - Types defined (MortgageInputs, MortgageResults, SavingsInputs, etc.)
+  - Types defined (MortgageInputs, SavingsInputs, InflationInputs, etc.)
   - Supabase client configured
   - Country configs: GB, US, CA, AU with localized defaults
 
@@ -32,28 +32,42 @@ STATUS: 2 CALCULATORS LIVE
   - Growth chart (total balance area, contributions + interest lines)
   - Shareable scenario links
 
-[COMPLETED] Phase 5: Vercel Deployment
+[COMPLETED] Phase 5: Inflation Calculator
+  - Historical CPI data for GB, US, CA, AU (1970-2025)
+  - Calculate purchasing power changes over time
+  - Show total inflation, annual average, purchasing power change
+  - Swap years button for easy comparison
+  - Shareable scenario links
+
+[COMPLETED] Phase 6: Vercel Deployment
   - Code pushed to GitHub
   - Deployed to Vercel
   - Environment variables configured
+
+[COMPLETED] Phase 7: Rate Dataset Pages
+  - Policy Rates page: Historical central bank rates (1970-2025)
+    - GB (Bank of England), US (Fed), CA (BoC), AU (RBA)
+    - Interactive comparison chart, country detail view, data table
+  - Inflation Indices page: Historical CPI data
+    - Year-over-year inflation rates view
+    - CPI Index view (normalized to 2000=100)
+    - Color-coded inflation indicators
+  - FX Rates page: Historical exchange rates
+    - GBP/USD, USD/CAD, AUD/USD, EUR/USD pairs
+    - Interactive charts with current rate reference line
 
 =====================================
 NEXT STEPS
 =====================================
 
-[TODO] 1. Build Inflation Calculator
-  - CPI data ingestion (cron jobs)
-  - Historical purchasing power comparison
-  - "What would X be worth today?" tool
-
-[TODO] 2. Rate Dataset Pages
-  - Policy rates by country
-  - Inflation indices
-  - FX rates with charts
-
-[TODO] 3. Monetization
+[TODO] 1. Monetization
   - Display ads on tool pages
   - Affiliate modules (mortgage brokers, savings platforms)
+
+[TODO] 2. Future Enhancements
+  - Live CPI data ingestion via cron jobs
+  - More countries
+  - PDF export of calculations
 
 =====================================
 KEY FILES
@@ -67,15 +81,26 @@ Database:
   supabase_setup.sql      - SQL for Supabase setup (already run)
 
 Core Logic:
-  src/lib/calculations/mortgage.ts  - Mortgage amortization engine
-  src/lib/calculations/savings.ts   - Compound interest engine
-  src/lib/countries.ts              - Country configurations
+  src/lib/calculations/mortgage.ts    - Mortgage amortization engine
+  src/lib/calculations/savings.ts     - Compound interest engine
+  src/lib/calculations/inflation.ts   - Inflation/CPI calculations
+  src/lib/countries.ts                - Country configurations
+  src/lib/data/policyRates.ts         - Historical policy rate data
+  src/lib/data/fxRates.ts             - Historical FX rate data
+
+Components:
+  src/components/RateChart.tsx        - Single-series rate chart
+  src/components/MultiRateChart.tsx   - Multi-series comparison chart
 
 Pages:
   src/app/page.tsx                          - Home
   src/app/mortgage-calculator/[country]/    - Mortgage calculator
   src/app/savings-calculator/[country]/     - Savings calculator
+  src/app/inflation-calculator/[country]/   - Inflation calculator
   src/app/s/[id]/                           - Scenario loader
+  src/app/data/policy-rates/                - Policy rates data page
+  src/app/data/inflation-indices/           - Inflation indices data page
+  src/app/data/fx-rates/                    - FX rates data page
 
 Repository:
   https://github.com/dan-dsilva-wq/finance-tools

@@ -4,7 +4,7 @@ import { InflationInputs, InflationResults } from '@/types';
 // Sources: ONS (UK), BLS (US), StatCan (CA), ABS (AU)
 // These are annual average CPI values
 
-const cpiData: Record<string, Record<number, number>> = {
+export const cpiData: Record<string, Record<number, number>> = {
   gb: {
     1970: 9.5, 1971: 10.4, 1972: 11.1, 1973: 12.1, 1974: 14.1, 1975: 17.5,
     1976: 20.4, 1977: 23.7, 1978: 25.6, 1979: 29.1, 1980: 34.3, 1981: 38.4,
