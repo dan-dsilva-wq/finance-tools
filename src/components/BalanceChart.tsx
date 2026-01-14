@@ -57,7 +57,7 @@ export default function BalanceChart({ schedule, country }: BalanceChartProps) {
               tickFormatter={(value) => {
                 if (value >= 1000000) return `${Math.round(value / 1000000)}M`;
                 if (value >= 1000) return `${Math.round(value / 1000)}k`;
-                return Math.round(value);
+                return `${Math.round(value)}`;
               }}
             />
             <Tooltip
