@@ -58,11 +58,26 @@ export interface SavingsYearRow {
   endBalance: number;
 }
 
+export interface InflationInputs {
+  amount: number;
+  fromYear: number;
+  toYear: number;
+}
+
+export interface InflationResults {
+  adjustedAmount: number;
+  percentageChange: number;
+  fromCpi: number;
+  toCpi: number;
+  fromYear: number;
+  toYear: number;
+}
+
 export interface Scenario {
   id: string;
   tool: 'mortgage' | 'savings' | 'inflation';
   country_code: string;
-  params: MortgageInputs | SavingsInputs;
+  params: MortgageInputs | SavingsInputs | InflationInputs;
   created_at: string;
   last_accessed_at: string;
   views: number;
